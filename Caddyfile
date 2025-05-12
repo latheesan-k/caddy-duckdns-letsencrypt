@@ -1,0 +1,9 @@
+{$DOMAIN} {
+    # Enable automatic HTTPS with Let's Encrypt
+    tls {
+        dns duckdns {env.DUCKDNS_TOKEN}
+    }
+
+    # Forward all requests to your application
+    reverse_proxy {$BACKEND_URL}
+}
