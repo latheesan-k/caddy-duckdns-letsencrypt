@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    network_mode: "host"
     ports:
       - "80:80"
       - "443:443"
@@ -14,12 +15,10 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-    networks:
-      - web_network
-
-networks:
-  web_network:
-    driver: bridge
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+      - DOMAIN=${DOMAIN}
+      - BACKEND_URL=${BACKEND_URL}
 
 volumes:
   caddy_data:
